@@ -1,0 +1,15 @@
+.top-margin {
+  text-align: center;
+  margin-top: 20px;
+}
+.text_right {
+  text-align: right;
+}
+.text_left {
+  text-align: left;
+}
+
+.table_result {
+  padding-left: 20px;
+  padding-right: 20px;
+}
