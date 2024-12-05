@@ -11,6 +11,8 @@ const HttpManager = {
  addContact: (params:{}) => post(`contact/add`, params),
 
  searchContact: (query: string) => get(`contact/search?query=${query}`),
+
+ generateContactPdf: () => get('contact/pdfOfContact', { responseType: 'arraybuffer' }),
 // API of employee 
  addEmployee: (params:{}) => post(`employee/add`, params),
 

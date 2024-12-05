@@ -48,7 +48,6 @@ export default function DataTable() {
     } as React.ChangeEvent<HTMLInputElement>);
   }, []);
   
-  
   const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value;
   
@@ -114,9 +113,22 @@ export default function DataTable() {
     setOpenDialog(false);
   };
 
-
-  
-
+  // 新增生成PDF的功能
+  const handleGeneratePdf = async () => {
+    try {
+      const pdfContent = await HttpManager.generateContactPdf();  // 获取PDF内容（二进制数据）
+      
+      // 类型断言：假设返回的是 ArrayBuffer
+      const blob = new Blob([pdfContent as ArrayBuffer], { type: 'application/pdf' }); // 创建 Blob 对象
+      const url = window.URL.createObjectURL(blob);  // 创建一个指向 Blob 对象的 URL
+      const a = document.createElement('a');  // 创建一个下载链接
+      a.href = url;  // 设置链接的 href 为 Blob URL
+      a.download = 'contacts.pdf';  // 设置文件下载的名称
+      a.click();  // 自动点击链接，触发下载
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
   
 
   const filteredRows = rows.filter(row =>
@@ -136,6 +148,14 @@ export default function DataTable() {
           onChange={handleSearchChange}
           style={{ marginLeft: '1rem' }}
         />
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={handleGeneratePdf}  // 添加生成 PDF 的按钮事件
+          style={{ marginLeft: '1rem' }}
+        >
+          Generate PDF
+        </Button>
       </div>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
