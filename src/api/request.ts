@@ -71,7 +71,7 @@ export function getBaseURL() {
  */
 export function get(url: string, params?: object) {
   return new Promise((resolve, reject) => {
-    axios.get(url, params).then(
+    axios.get(url,  {...params, withCredentials: true,}).then(
       (response) => resolve(response.data),
       (error) => reject(error)
     );
@@ -86,7 +86,7 @@ export function get(url: string, params?: object) {
  */
 export function post(url: string, data = {}) {
   return new Promise((resolve, reject) => {
-    axios.post(url, data).then(
+    axios.post(url, {...data, withCredentials: true,}).then(
       (response) => resolve(response.data),
       (error) => reject(error)
     );

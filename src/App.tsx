@@ -8,6 +8,8 @@ import AppRouter from './component/AppRouter';
 import SignIn from './component/SignIn';
 import StickyFooter from './component/StickyFooter';
 import APIClient from './component/utils/APIClient';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 
@@ -23,6 +25,17 @@ function App() {
   const handleLogout = () => {
     setLoggedInUser(null);
   };
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/auth/status', { withCredentials: true })
+      .then(res => {
+        console.log("User is logged in", res.data);
+      })
+      .catch(err => {
+        console.log("User not logged in");
+      });
+  }, []);
+  
 
   return (
     <div>
