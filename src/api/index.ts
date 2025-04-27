@@ -16,7 +16,7 @@ const HttpManager = {
 // API of employee 
  addEmployee: (params:{}) => post(`employee/add`, params),
 
- login: (params:{}) => post(`login/`, params)
+ login: (params:{}) => post(`login`, params)
 
 }
 

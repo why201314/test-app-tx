@@ -65,6 +65,7 @@ export default function DataTable() {
 
   const fetchContacts = async () => {
     try {
+      console.log("start fetch contacts");
       const result = await HttpManager.getAllContact() as ResponseBody;
       const rowsWithIds = result.data.map((row: Row) => ({ ...row, id: row.contactId }));
       setRows(rowsWithIds);

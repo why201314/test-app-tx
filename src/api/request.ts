@@ -1,7 +1,7 @@
 import axios from "axios";
 import Router from "react-router";
 
-const BASE_URL = "http://127.0.0.1:8081/oc-sys";
+const BASE_URL = "http://127.0.0.1:8081/";
 
 axios.defaults.timeout = 5000; // 超时时间设置
 axios.defaults.withCredentials = true; // true允许跨域
@@ -70,8 +70,19 @@ export function getBaseURL() {
  * @returns {Promise}
  */
 export function get(url: string, params?: object) {
+  console.log({...params, withCredentials: true,});
   return new Promise((resolve, reject) => {
-    axios.get(url,  {...params, withCredentials: true,}).then(
+    // axios.get(url,  {...params, withCredentials: true,}).then(
+    //   (response) => resolve(response.data),
+    //   (error) => reject(error)
+    // );
+
+    axios({
+      withCredentials: true, // ←これを追加
+      method: "GET",
+      url: url,
+      data: params,
+    }).then(
       (response) => resolve(response.data),
       (error) => reject(error)
     );
@@ -85,11 +96,23 @@ export function get(url: string, params?: object) {
  * @returns {Promise}
  */
 export function post(url: string, data = {}) {
+  console.log({...data, withCredentials: true,});
   return new Promise((resolve, reject) => {
-    axios.post(url, {...data, withCredentials: true,}).then(
+    // axios.post(url, data, {withCredentials: true}).then(
+    //   (response) => resolve(response.data),
+    //   (error) => reject(error)
+    // );
+
+    axios({
+      withCredentials: true, // ←これを追加
+      method: "POST",
+      url: url,
+      data: data,
+    }).then(
       (response) => resolve(response.data),
       (error) => reject(error)
     );
+
   });
 }
 

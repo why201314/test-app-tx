@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAuth } from "../api/auth";
 import { useNavigate } from 'react-router-dom';
+import { HttpManager } from "../api";
 
 export const useAuth = (user, pass) => {
 	const navigate = useNavigate();
@@ -8,8 +9,11 @@ export const useAuth = (user, pass) => {
 	useEffect(() => {
 		getAuth(user, pass).then((res) => {
 			setStatus(res.status);
-			navigate('/contact')
+			console.log(res);
+			//HttpManager.getAllContact();
+			navigate('/contact');
 		}).catch((err) => {
+			console.log(err);
 			setStatus(err.response.status);
 			navigate('/');
 		});
