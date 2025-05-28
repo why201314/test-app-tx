@@ -1,4 +1,4 @@
-import {get, post, deletes, getBaseURL} from './request';
+import {get, get_pdf, post, deletes, getBaseURL} from './request';
 
 
 
@@ -12,7 +12,7 @@ const HttpManager = {
 
  searchContact: (query: string) => get(`contact/search?query=${query}`),
 
- generateContactPdf: () => get('contact/pdfOfContact', { responseType: 'arraybuffer' }),
+ generateContactPdf: () => get_pdf('contact/pdfOfContact'),
 // API of employee 
  addEmployee: (params:{}) => post(`employee/add`, params),
 

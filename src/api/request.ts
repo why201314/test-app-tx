@@ -90,6 +90,32 @@ export function get(url: string, params?: object) {
 }
 
 /**
+ * 封装get pdf方法
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+export function get_pdf(url: string, params?: object) {
+  return new Promise((resolve, reject) => {
+    // axios.get(url,  {...params, withCredentials: true,}).then(
+    //   (response) => resolve(response.data),
+    //   (error) => reject(error)
+    // );
+
+    axios({
+      withCredentials: true, // ←これを追加
+      method: "GET",
+      url: url,
+      responseType: 'blob',
+      data: params,
+    }).then(
+      (response) => resolve(response.data),
+      (error) => reject(error)
+    );
+  });
+}
+
+/**
  * 封装post请求
  * @param url
  * @param data

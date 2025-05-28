@@ -6,7 +6,8 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } 
 
 interface Row {
   contactId: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   mail: string;
   phoneNumber: string;
   duties: number;
@@ -22,7 +23,8 @@ interface ResponseBody {
 
 const columns: GridColDef[] = [
   { field: 'contactId', headerName: 'ID',type: 'number', width: 70 },
-  { field: 'name', headerName: 'Name', width: 130 },
+  { field: 'firstName', headerName: 'first_name', width: 130 },
+  { field: 'lasttName', headerName: 'last_name', width: 130 },
   { field: 'mail', headerName: 'Mail', width: 130 },
   { field: 'phoneNumber', headerName: 'Phone Number', width: 130 },
   { field: 'duties', headerName: 'Duties', width: 130 },
@@ -32,7 +34,7 @@ export default function DataTable() {
   const [rows, setRows] = useState<Row[]>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<GridRowId[]>([]);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [newContact, setNewContact] = useState<Partial<Row>>({ contactId: 0, name: '', mail: '', duties: 0, phoneNumber: '' });
+  const [newContact, setNewContact] = useState<Partial<Row>>({ contactId: 0, firstName: '', lastName: '',mail: '', duties: 0, phoneNumber: '' });
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleSelectionChange = (newSelection: GridRowId[]) => {
@@ -96,7 +98,8 @@ export default function DataTable() {
   const handleAddContact = async () => {
     const params = {
       contact_id: newContact.contactId,
-      name: newContact.name,
+      firstName: newContact.firstName,
+      lastName: newContact.lastName,
       phone_number: newContact.phoneNumber,
       mail: newContact.mail,
       duties: newContact.duties
@@ -133,7 +136,8 @@ export default function DataTable() {
   
 
   const filteredRows = rows.filter(row =>
-    row.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    row.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    row.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     row.mail.toLowerCase().includes(searchQuery.toLowerCase()) ||
     row.phoneNumber.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -188,12 +192,22 @@ export default function DataTable() {
           <TextField
             autoFocus
             margin="dense"
+            id="first_name"
+            label="first_name"
+            type="text"
+            fullWidth
+            value={newContact.firstName}
+            onChange={(e) => setNewContact({ ...newContact, firstName: e.target.value })}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
             id="name"
             label="Name"
             type="text"
             fullWidth
-            value={newContact.name}
-            onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
+            value={newContact.lastName}
+            onChange={(e) => setNewContact({ ...newContact, lastName: e.target.value })}
           />
           <TextField
             margin="dense"
