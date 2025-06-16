@@ -10,10 +10,12 @@ const HttpManager = {
 
  addContact: (params:{}) => post(`contact/add`, params),
 
+ updateContact: (params:{}) => post(`contact/update`, params),
+
  searchContact: (query: string) => get(`contact/search?query=${query}`),
 
  generateContactPdf: () => get_pdf('contact/pdfOfContact'),
-// API of employee 
+
  addEmployee: (params:{}) => post(`employee/add`, params),
 
  login: (params:{}) => post(`login`, params)
